@@ -1,4 +1,4 @@
-package com.example.demo.users;
+package com.example.demo.users.user;
 
 import com.example.demo.domain.users.user.User;
 import com.example.demo.domain.users.user.dao.UserRepository;
@@ -21,12 +21,11 @@ class UserTest {
     void create_user() {
         User findUser = createUser();
 
-        Assertions.assertThat(findUser.getName()).isEqualTo("sykim");
+        Assertions.assertThat(findUser.getEmail().getValue()).isEqualTo("yeob32@gmail.com");
     }
 
     User createUser() {
         Email email = Email.createEmail("yeob32@gmail.com");
-        String name = "sykim";
         String nickname = "yeob32";
         String passwordValue = "1234";
 
@@ -35,7 +34,6 @@ class UserTest {
                 .build();
         User user = User.generalUserBuilder()
                 .email(email)
-                .name(name)
                 .nickname(nickname)
                 .password(password)
                 .build();
