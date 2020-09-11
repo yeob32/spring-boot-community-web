@@ -12,7 +12,7 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Email {
 
-    @Column(name = "email", nullable = false)
+    @Column(name = "email", nullable = false, unique = true)
     private String value;
 
     public static Email createEmail(String value) {

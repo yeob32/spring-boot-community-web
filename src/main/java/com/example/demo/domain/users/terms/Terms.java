@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedBy;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "terms")
@@ -25,7 +25,7 @@ public class Terms {
     private TermsType termsType;
 
     @Column(name = "application_date", nullable = false)
-    private LocalDateTime applicationDate;
+    private LocalDate applicationDate;
 
     @Column(name = "contents", columnDefinition = "TEXT", nullable = false)
     private String contents;
@@ -41,6 +41,11 @@ public class Terms {
 
     @CreatedBy
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "admin_user_id")
+    @JoinColumn(name = "created_by")
     private AdminUser createdBy;
+
+    @CreatedBy
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "updated_by")
+    private AdminUser updatedBy;
 }

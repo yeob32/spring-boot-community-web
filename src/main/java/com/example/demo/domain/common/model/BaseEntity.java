@@ -14,6 +14,10 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 public class BaseEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
 //    @Temporal(TemporalType.DATE) //
 //    @CreationTimestamp // mysql 에서 데이터 타입 확인
     @CreatedDate // mysql 에서 datetime 으로 들어가는지 확인

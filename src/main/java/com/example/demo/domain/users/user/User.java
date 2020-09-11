@@ -23,19 +23,15 @@ import java.util.List;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     private Email email;
 
-    @Column(name = "name", nullable = false, length = 50)
-    private String name;
-
-    @Column(name = "nickname", nullable = false)
+    @Column(name = "nickname", nullable = false, length = 50)
     private String nickname;
 
     private Password password;
+
+    @Column(name = "cellphone")
+    private String cellphone;
 
     @Column(name = "user_status")
     @Enumerated(value = EnumType.STRING)
@@ -64,10 +60,10 @@ public class User extends BaseEntity {
     private List<UserLoginHistory> userLoginHistories = new ArrayList<>();
 
     @Builder(builderMethodName = "generalUserBuilder")
-    public User(Email email, String name, String nickname, Password password) {
+    public User(Email email, String nickname, String cellphone, Password password) {
         this.email = email;
-        this.name = name;
         this.nickname = nickname;
+        this.cellphone = cellphone;
         this.password = password;
     }
 }
