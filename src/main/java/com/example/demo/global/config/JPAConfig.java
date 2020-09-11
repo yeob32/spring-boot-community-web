@@ -40,7 +40,6 @@ public class JPAConfig {
 
     @Bean
     public DataSource dataSource() {
-
         HikariConfig hikariConfig = new HikariConfig();
         hikariConfig.setDriverClassName("org.h2.Driver");
         hikariConfig.setJdbcUrl("jdbc:h2:./community");
@@ -68,6 +67,7 @@ public class JPAConfig {
     Properties additionalProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        properties.setProperty("hibernate.open_in_view", "false");
         properties.setProperty("hibernate.show_sql", "true");
         properties.setProperty("hibernate.format_sql", "true");
         properties.setProperty("hibernate.use_sql_comments", "true");
