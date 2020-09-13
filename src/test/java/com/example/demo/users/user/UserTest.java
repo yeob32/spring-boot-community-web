@@ -2,7 +2,6 @@ package com.example.demo.users.user;
 
 import com.example.demo.domain.users.user.User;
 import com.example.demo.domain.users.user.dao.UserRepository;
-import com.example.demo.domain.users.user.model.Email;
 import com.example.demo.domain.users.user.model.Password;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -21,11 +20,11 @@ class UserTest {
     void create_user() {
         User findUser = createUser();
 
-        Assertions.assertThat(findUser.getEmail().getValue()).isEqualTo("yeob32@gmail.com");
+        Assertions.assertThat(findUser.getEmail()).isEqualTo("yeob32@gmail.com");
     }
 
     User createUser() {
-        Email email = Email.createEmail("yeob32@gmail.com");
+        String email = "yeob32@gmail.com";
         String nickname = "yeob32";
         String passwordValue = "1234";
 

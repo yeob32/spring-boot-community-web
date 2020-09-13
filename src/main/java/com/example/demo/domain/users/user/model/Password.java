@@ -1,5 +1,7 @@
 package com.example.demo.domain.users.user.model;
 
+import com.example.demo.domain.users.user.exception.PasswordFailedExceededException;
+import com.example.demo.global.exception.ErrorCode;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
@@ -30,9 +32,37 @@ public class Password {
     private LocalDateTime lastChangeDate;
 
     @Builder
-    public Password(String value) {
-        this.value = value;
+    public Password(final String value) {
+        this.value = encodePassword(value);
         this.ttl = 1209_604; // 1209_604 is 14 days
-        this.expirationDate = LocalDateTime.now().plusSeconds(ttl);
+        this.expirationDate = extendExpirationDate();
+    }
+
+    private String encodePassword(String password) {
+        return password;
+    }
+
+    private LocalDateTime extendExpirationDate() {
+        return LocalDateTime.now().plusSeconds(ttl);
+    }
+
+    public boolean isMatched(final String rawPassword) {
+        if (failedCount >= 5) {
+            throw new PasswordFailedExceededException(ErrorCode.EXCEEDED_PASSWORD_FAILED_COUNT);
+        }
+
+        boolean matches = isMatches(rawPassword);
+        updateFailedCount(matches);
+        return matches;
+    }
+
+    private boolean isMatches(String rawPassword) {
+        return rawPassword.equals(value);
+    }
+
+    private void updateFailedCount(boolean matches) {
+        if(matches) {
+            this.failedCount++;
+        }
     }
 }

@@ -1,26 +1,32 @@
 package com.example.demo.domain.users.user.api;
 
 import com.example.demo.domain.users.user.User;
-import com.example.demo.domain.users.user.application.SignUpUserService;
 import com.example.demo.domain.users.user.application.UserService;
-import com.example.demo.domain.users.user.dto.SignUpDto;
+import com.example.demo.global.response.ApiResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/api")
 public class UserApi {
 
     private final UserService userService;
-    private final SignUpUserService signInUserService;
 
-    @PostMapping(value = "/signUp")
-    public Long signUp(SignUpDto.Req reqDto) {
-        User user = signInUserService.signUp(reqDto);
+    @GetMapping("/users")
+    public List<User> getUsers() {
+        return userService.getUsers();
+    }
 
-        return user.getId();
+    @GetMapping("/users/{id}")
+    public User getUser(@PathVariable Long id) {
+        return userService.getUser(id);
+    }
+
+    @PutMapping("/users/changeNickname/{id}")
+    public Object updateUser(@PathVariable Long id, String nickname) {
+        userService.changeNickname(id, nickname);
+        return ApiResponse.ok();
     }
 }

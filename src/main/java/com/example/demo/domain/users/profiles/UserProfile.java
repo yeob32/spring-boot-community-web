@@ -1,6 +1,5 @@
-package com.example.demo.domain.users.connection;
+package com.example.demo.domain.users.profiles;
 
-import com.example.demo.domain.users.connection.enums.ProviderType;
 import com.example.demo.domain.users.user.User;
 import lombok.AccessLevel;
 import lombok.Getter;
@@ -8,22 +7,21 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
-@Entity
-@Table(name = "user_connection")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
-public class UserConnection {
+@Table(name = "user_profile")
+@Entity
+public class UserProfile {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "provider", nullable = false)
-    private ProviderType providerType;
+    @Column(name = "tags")
+    private String tag;
 
-    @Column(name = "access_token", nullable = false)
-    private String accessToken;
+    @Column(name = "intro", columnDefinition = "TEXT")
+    private String intro;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

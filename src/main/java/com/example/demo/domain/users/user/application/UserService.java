@@ -6,6 +6,7 @@ import com.example.demo.domain.users.user.exception.NotFoundUserException;
 import com.example.demo.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -24,5 +25,11 @@ public class UserService {
                 .orElseThrow(() -> new NotFoundUserException(ErrorCode.NOT_FOUND_USER));
     }
 
+    @Transactional
+    public void changeNickname(Long id, String nickname) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new NotFoundUserException(ErrorCode.NOT_FOUND_USER));
 
+        user.changeNickname(nickname);
+    }
 }

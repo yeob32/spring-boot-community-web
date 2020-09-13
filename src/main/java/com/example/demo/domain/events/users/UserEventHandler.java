@@ -1,20 +1,25 @@
-package com.example.demo.domain.users.history.listeners;
+package com.example.demo.domain.events.users;
 
 import com.example.demo.domain.users.history.service.UserLoginHistoryService;
-import com.example.demo.domain.users.user.events.UserEvent;
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.event.TransactionalEventListener;
 
-@RequiredArgsConstructor
 @Component
-public class UserLoginHistoryHandler {
+@RequiredArgsConstructor
+public class UserEventHandler {
 
     private final UserLoginHistoryService userLoginHistoryService;
 
-    @TransactionalEventListener
-    public void handler(UserEvent userEvent) {
+    // @TransactionalEventListener
+    @EventListener
+    public void saveUserLoginHistoryHandler(UserEvent userEvent) {
         userLoginHistoryService.saveUserLoginHistory(userEvent.getUser());
     }
 
+    @EventListener
+    public void updateUserHistoryHandler(UserEvent userEvent) {
+
+    }
 }

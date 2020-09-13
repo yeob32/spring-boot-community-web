@@ -1,4 +1,4 @@
-package com.example.demo.domain.users.user.events;
+package com.example.demo.domain.events.users;
 
 import com.example.demo.domain.users.user.User;
 import lombok.Getter;
