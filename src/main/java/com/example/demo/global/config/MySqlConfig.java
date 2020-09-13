@@ -21,7 +21,7 @@ import java.util.Properties;
 @Slf4j
 @Configuration
 @EnableTransactionManagement
-public class JPAConfig {
+public class MySqlConfig {
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -41,12 +41,28 @@ public class JPAConfig {
     @Bean
     public DataSource dataSource() {
         HikariConfig hikariConfig = new HikariConfig();
-        hikariConfig.setDriverClassName("org.h2.Driver");
-        hikariConfig.setJdbcUrl("jdbc:h2:./community");
-        hikariConfig.setUsername("sa");
-        hikariConfig.setPassword("");
+        hikariConfig.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        hikariConfig.setJdbcUrl("jdbc:mysql://localhost:3306/community?useSSL=false&allowPublicKeyRetrieval=true&characterEncoding=UTF-8&serverTimezone=UTC");
+        hikariConfig.setUsername("ksy");
+        hikariConfig.setPassword("1234");
+        hikariConfig.setDataSourceProperties(properties());
 
         return new HikariDataSource(hikariConfig);
+    }
+
+    private Properties properties() {
+        Properties properties = new Properties();
+        properties.setProperty("cachePrepStmts", "true");
+        properties.setProperty("prepStmtCacheSize", "250");
+        properties.setProperty("prepStmtCacheSqlLimit", "2048");
+        properties.setProperty("useServerPrepStmts", "true");
+        properties.setProperty("useLocalSessionState", "true");
+        properties.setProperty("rewriteBatchedStatements", "true");
+        properties.setProperty("cacheResultSetMetadata", "true");
+        properties.setProperty("cacheServerConfiguration", "true");
+        properties.setProperty("elideSetAutoCommits", "true");
+        properties.setProperty("maintainTimeStats", "false");
+        return properties;
     }
 
     @Bean
@@ -66,11 +82,11 @@ public class JPAConfig {
 
     Properties additionalProperties() {
         Properties properties = new Properties();
-        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+        properties.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
         properties.setProperty("hibernate.open_in_view", "false");
         properties.setProperty("hibernate.show_sql", "true");
-        properties.setProperty("hibernate.format_sql", "true");
         properties.setProperty("hibernate.use_sql_comments", "true");
+//        properties.setProperty("hibernate.format_sql", "true");
 //        properties.setProperty("hibernate.id.new_generator_mappings", "true"); // ~ 2.0 default true
         properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 
