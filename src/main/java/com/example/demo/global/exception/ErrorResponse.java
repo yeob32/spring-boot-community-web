@@ -9,17 +9,20 @@ import lombok.NoArgsConstructor;
 public class ErrorResponse {
 
     private int status;
+    private String code;
     private String message;
     private String description;
 
     private ErrorResponse(ErrorCode code, String description) {
         this.status = code.getStatus();
         this.message = code.getMessage();
+        this.code = code.getCode();
         this.description = description;
     }
 
     private ErrorResponse(ApiException e) {
         this.status = e.getErrorCode().getStatus();
+        this.code = e.getErrorCode().getCode();
         this.message = e.getErrorCode().getMessage();
     }
 
