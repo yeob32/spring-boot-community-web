@@ -86,7 +86,8 @@ public class MySqlConfig {
         properties.setProperty("hibernate.open_in_view", "false");
         properties.setProperty("hibernate.show_sql", "true");
         properties.setProperty("hibernate.use_sql_comments", "true");
-//        properties.setProperty("hibernate.format_sql", "true");
+        properties.setProperty("hibernate.format_sql", "true");
+        properties.setProperty("hibernate.show_sql", "true");
 //        properties.setProperty("hibernate.id.new_generator_mappings", "true"); // ~ 2.0 default true
         properties.setProperty("hibernate.hbm2ddl.auto", "create-drop");
 
